@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Tailwind v4'te yaptığımız renk ve tema ayarlarını (tailwind.config.js içindeki) 
+   tanıması için bu satırı da altına ekleyelim:
+*/
+@config "../tailwind.config.js";

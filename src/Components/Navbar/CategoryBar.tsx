@@ -3,7 +3,6 @@ interface Category {
   name: string;
 }
 
-// 1. Props arayüzüne tıklama fonksiyonunu ekledik
 interface CategoryBarProps {
   categories: Category[];
   onCategoryClick: (categoryName: string) => void;
@@ -17,7 +16,6 @@ export const CategoryBar = ({ categories, onCategoryClick }: CategoryBarProps) =
           {categories.map((cat) => (
             <li 
               key={cat.id} 
-              // 2. Tıklama olayını buraya bağlıyoruz
               onClick={() => onCategoryClick(cat.name)}
               className="hover:text-blue-400 cursor-pointer transition-colors shrink-0 uppercase italic"
             >

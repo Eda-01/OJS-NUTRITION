@@ -13,7 +13,6 @@ export const CategoryCard = ({ name, image, bgColor }: CategoryCardProps) => {
         <img 
           src={image} 
           alt={name} 
-          // object-contain sayesinde resim kesilmez, kartın içine sığar
           className="max-w-full max-h-full object-contain transform group-hover:scale-110 transition-transform duration-500" 
         />
       </div>
@@ -21,7 +20,6 @@ export const CategoryCard = ({ name, image, bgColor }: CategoryCardProps) => {
       {/* Sağ Taraf: Metin ve Buton */}
       <div className="w-[55%] flex flex-col items-center justify-center text-center px-2">
         <h3 className="text-xl md:text-2xl font-black italic text-[#1A1A1A] leading-tight mb-4 uppercase tracking-tighter">
-          {/* Kelimeleri alt alta getirmek için split kullanıyoruz */}
           {name.split(' ').map((word, i) => (
             <span key={i} className="block">{word}</span>
           ))}

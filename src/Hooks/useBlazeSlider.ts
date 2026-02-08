@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-// 'type' anahtar kelimesini ekleyerek import ediyoruz
 import BlazeSlider, { type BlazeConfig } from 'blaze-slider';
 import "blaze-slider/dist/blaze.css";
 

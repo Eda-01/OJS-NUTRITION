@@ -32,10 +32,10 @@ export const ReviewsSection = () => {
     <section className="w-full py-16 bg-white border-t border-gray-100">
       <div className="max-w-[1200px] mx-auto px-6">
         
-        {/* BLAZE SLIDER ANA KAPSAYICI (Ref ve blaze-slider buraya!) */}
+        {/* BLAZE SLIDER ANA KAPSAYICI */}
         <div className="blaze-slider" ref={sliderElRef}>
           
-          {/* Üst Başlık ve Butonlar (Hepsi blaze-slider içinde olmalı ki butonları tanısın) */}
+          {/* Üst Başlık ve Butonlar  */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-12 pb-6 border-b border-gray-100">
             <h2 className="text-lg font-black text-[#1A1A1A] tracking-tighter uppercase italic">
               GERÇEK MÜŞTERİ YORUMLARI

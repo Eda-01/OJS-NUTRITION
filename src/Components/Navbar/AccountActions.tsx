@@ -5,7 +5,7 @@ import { useCart } from '../Context/CartContext';
 interface AccountActionsProps {
   onCartClick: () => void;
   onAccountClick: () => void;
-  user: { name: string } | null; // Bu satırı ekle
+  user: { name: string } | null; 
 }
 
 export const AccountActions = ({ onCartClick, onAccountClick,user }: AccountActionsProps) => {
@@ -25,13 +25,11 @@ export const AccountActions = ({ onCartClick, onAccountClick,user }: AccountActi
         className="relative py-2 hidden lg:block"
       >
         <div 
-          // 1. Ana butonun kendisine tıklayınca modalı aç
           onClick={onAccountClick}
           className="flex items-center gap-2 border-2 border-gray-300 px-3 py-2 cursor-pointer hover:bg-gray-50 transition-colors"
         >
           <User size={18} className="text-gray-600" />
           <span className="font-bold text-gray-500 text-[11px] uppercase">
-            {/* user varsa ismini, yoksa HESAP yazıyoruz */}
             {user ? user.name : "HESAP"}
           </span>
           <ChevronDown size={14} className={`text-gray-500 transition-transform ${isMenuOpen ? 'rotate-180' : ''}`} />
@@ -42,7 +40,6 @@ export const AccountActions = ({ onCartClick, onAccountClick,user }: AccountActi
           <div className="absolute top-full right-0 w-48 bg-white border border-gray-200 shadow-xl z-[110] py-2 animate-in fade-in slide-in-from-top-2 duration-200">
             {!isLoggedIn ? (
               <>
-                {/* 2. Giriş Yap ve Kayıt Ol butonlarına tıklayınca modalı aç */}
                 <button 
                   onClick={onAccountClick}
                   className="w-full flex items-center gap-3 px-4 py-3 text-left text-sm font-semibold hover:bg-gray-50 text-gray-700"

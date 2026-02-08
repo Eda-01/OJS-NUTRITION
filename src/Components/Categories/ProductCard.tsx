@@ -1,61 +1,95 @@
-import { Star } from 'lucide-react';
+import React from 'react';
 
-interface ProductProps {
+interface ProductCardProps {
+  id?: string | number;
   name: string;
-  subTitle: string;
   image: string;
-  stars: number;
-  reviews: number;
-  price: number;
-  oldPrice?: number;
-  discountTag?: string;
+  shortDescription?: string;
+  comments?: number;
+  rating?: number;
+  price: number;              
+  discountedPrice?: number | null; 
+  hasDiscount?: boolean;      
 }
 
-export const ProductCard = ({ name, subTitle, image, stars, reviews, price, oldPrice, discountTag }: ProductProps) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+  name,
+  image,
+  shortDescription,
+  comments = 0,
+  rating = 5,
+  price,
+  discountedPrice,
+  hasDiscount
+}) => {
+
+  const renderStars = (starCount: number) => {
+    const fullStars = '★'.repeat(Math.round(starCount));
+    const emptyStars = '☆'.repeat(5 - Math.round(starCount));
+    return <span className="text-yellow-400">{fullStars}{emptyStars}</span>;
+  };
+
+  const discountPercentage = hasDiscount && discountedPrice && price > 0
+    ? Math.round(((price - discountedPrice) / price) * 100) 
+    : null;
+
   return (
-    <div className="flex flex-col items-center group cursor-pointer relative bg-white p-2">
+    <div className="group relative flex flex-col bg-white border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition-shadow p-4 h-full cursor-pointer">
       
-      {/* İndirim Etiketi */}
-      {discountTag && (
-        <div className="absolute top-0 right-2 bg-[#D32F2F] text-white text-[10px] font-bold py-3 px-2 z-10 flex flex-col items-center leading-tight">
-          <span>{discountTag.split(' ')[0]}</span>
-          <span>{discountTag.split(' ')[1]}</span>
+      {hasDiscount && discountPercentage && (
+        <div className="absolute top-2 right-2 bg-red-600 text-white text-[11px] font-black px-2 py-1 z-10 italic rounded-sm shadow-sm">
+          %{discountPercentage} İNDİRİM
         </div>
       )}
 
       {/* Ürün Görseli */}
-      <div className="w-full aspect-square bg-[#F3F6F9] mb-4 flex items-center justify-center overflow-hidden">
+      <div className="flex justify-center items-center h-40 mb-4 overflow-hidden">
         <img 
           src={image} 
-          className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500" 
+          alt={name} 
+          className="max-h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-300" 
         />
       </div>
 
-      {/* Ürün Bilgileri */}
-      <div className="text-center flex flex-col items-center">
-        <h3 className="font-black text-sm text-[#1A1A1A] mb-1 uppercase tracking-tight">{name}</h3>
-        <p className="text-[9px] text-gray-400 font-bold mb-2 uppercase leading-3 px-2 h-6 overflow-hidden">
-          {subTitle}
+      <div className="flex flex-col flex-grow text-center">
+        {/* Ürün Adı */}
+        <h3 className="text-sm font-black uppercase italic leading-tight mb-2 text-gray-900 min-h-[40px] line-clamp-2">
+          {name}
+        </h3>
+
+        {/* Kısa Açıklama */}
+        <p className="text-[11px] text-gray-500 font-medium uppercase mb-2 min-h-[32px] line-clamp-2">
+          {shortDescription}
         </p>
 
         {/* Yıldızlar */}
-        <div className="flex gap-0.5 mb-1">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} size={12} fill="#FFC107" color="#FFC107" />
-          ))}
+        <div className="text-[10px] mb-4">
+          {renderStars(rating)}
+          <span className="text-gray-400 ml-1 font-bold">({comments} YORUM)</span>
         </div>
 
-        {/* Yorum Sayısı */}
-        <span className="text-[10px] text-gray-400 font-bold mb-3">{reviews} Yorum</span>
-
-        {/* Fiyatlar */}
-        <div className="flex items-center gap-2">
-          <span className="text-base font-black text-[#1A1A1A]">{price} TL</span>
-          {oldPrice && (
-            <span className="text-sm text-red-500 line-through font-bold">{oldPrice} TL</span>
+        {/* FİYAT ALANI */}
+        <div className="mt-auto flex flex-col items-center">
+          {hasDiscount && discountedPrice ? (
+            <>
+              {/* İndirimli Fiyat (Kırmızı) */}
+              <span className="text-xl font-black italic text-red-600 leading-none">
+                {discountedPrice.toLocaleString('tr-TR')} TL
+              </span>
+              {/* Eski Fiyat (Üstü Çizili Siyah/Gri) */}
+              <span className="text-xs text-gray-400 line-through font-bold italic mt-1">
+                {price.toLocaleString('tr-TR')} TL
+              </span>
+            </>
+          ) : (
+            <span className="text-xl font-black italic text-gray-900">
+              {price.toLocaleString('tr-TR')} TL
+            </span>
           )}
         </div>
       </div>
     </div>
   );
 };
+
+export default ProductCard;

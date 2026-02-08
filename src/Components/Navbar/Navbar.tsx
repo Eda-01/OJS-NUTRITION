@@ -13,7 +13,7 @@ interface NavbarProps {
   onSearch: (query: string) => void;
   onAccountClick: () => void;
   onLogoClick: () => void;
-  user: { name: string } | null; // Bu satır eksikti
+  user: { name: string } | null;
 }
 
 export const Navbar = ({
@@ -28,7 +28,6 @@ export const Navbar = ({
 
   return (
     <header className="w-full shadow-sm sticky top-0 z-[100] bg-white">
-      {/* ÜST BÖLÜM: Logo, Arama, Hesap ve Sepet */}
       <div className="bg-white py-4 border-b">
         <div className="container mx-auto px-4 flex items-center justify-between gap-2 md:gap-4">
 
@@ -55,23 +54,17 @@ export const Navbar = ({
           />
         </div>
       </div>
-
-      {/* Masaüstü Kategori Çubuğu */}
       <div className="hidden lg:block">
         <CategoryBar
           categories={NAV_CATEGORIES}
           onCategoryClick={onCategoryClick}
         />
       </div>
-
-      {/* Bilgi Şeridi (Ücretsiz Kargo vs.) */}
       <InfoBar infoData={INFO_STRIP_DATA} />
 
       {/* MOBİL MENÜ PANELİ */}
       {isMobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b shadow-xl p-4 z-50 animate-in slide-in-from-top duration-300">
-
-          {/* Mobil Hesap Girişi */}
           <div
             onClick={() => {
               onAccountClick();
@@ -87,13 +80,9 @@ export const Navbar = ({
               <span className="text-[11px] text-gray-500">Giriş Yap veya Kayıt Ol</span>
             </div>
           </div>
-
-          {/* Mobil Arama Çubuğu */}
           <div className="mb-6">
             <SearchBar onSearch={onSearch} />
           </div>
-
-          {/* Mobil Kategoriler */}
           <div className="flex flex-col gap-1">
             <h3 className="font-bold text-gray-400 text-[10px] uppercase mb-2 tracking-widest">Kategoriler</h3>
             {NAV_CATEGORIES.map((cat, index) => {

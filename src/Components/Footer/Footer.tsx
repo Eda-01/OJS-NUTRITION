@@ -1,8 +1,14 @@
 import { Star, Plus, Minus } from 'lucide-react';
+import React from 'react';
 import { useState } from 'react';
 
-export const Footer = () => {
-  // Mobilde hangi menünün açık olduğunu tutan state
+interface FooterProps {
+  onContactClick: () => void;
+  onFAQClick: () => void; 
+  onAboutClick: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onContactClick, onFAQClick, onAboutClick }) => {
   const [openSection, setOpenSection] = useState<string | null>(null);
 
   const toggleSection = (section: string) => {
@@ -12,8 +18,6 @@ export const Footer = () => {
   return (
     <footer className="w-full bg-[#1A1A1A] text-white pt-16 pb-8">
       <div className="max-w-[1200px] mx-auto px-6">
-        
-        {/* Üst Bölüm: Garanti ve Güven Metni */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
@@ -32,30 +36,41 @@ export const Footer = () => {
           </div>
           <div className="flex items-center">
             <p className="text-gray-400 text-sm leading-relaxed max-w-md">
-              200.000'den fazla ürün yorumumuza dayanarak, ürünlerimizi seveceğinize eminiz. 
+              200.000'den fazla ürün yorumumuza dayanarak, ürünlerimizi seveceğinize eminiz.
               Eğer herhangi bir sebeple memnun kalmazsan, bizimle iletişime geçtiğinde çözüme kavuşturacağız.
             </p>
           </div>
         </div>
-
-        {/* Alt Bölüm: Link Grupları (Responsive Accordion) */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-10 border-t border-zinc-800 pt-10 md:pt-16">
-          
-          {/* 1. Grup: Logo ve Kurumsal */}
           <div className="border-b border-zinc-800 md:border-0 pb-4 md:pb-0">
-            <button 
+            <button
               onClick={() => toggleSection('ojs')}
               className="w-full flex justify-between items-center md:block text-left"
             >
-              <h1 className="text-2xl font-black italic tracking-tighter">OJS NUTRITION</h1>
+              <h1 className="text-2xl font-black italic tracking-tighter uppercase">OJS NUTRITION</h1>
               <span className="md:hidden">
                 {openSection === 'ojs' ? <Minus size={20} /> : <Plus size={20} />}
               </span>
             </button>
             <ul className={`${openSection === 'ojs' ? 'flex' : 'hidden'} md:flex flex-col gap-2 text-[13px] text-gray-400 font-medium mt-4 md:mt-6`}>
-              <li className="hover:text-white cursor-pointer transition-colors">İletişim</li>
-              <li className="hover:text-white cursor-pointer transition-colors">Hakkımızda</li>
-              <li className="hover:text-white cursor-pointer transition-colors">Sıkça Sorulan Sorular</li>
+              <li
+                onClick={onContactClick}
+                className="cursor-pointer hover:text-white transition-colors"
+              >
+                İletişim
+              </li>
+              <li
+                onClick={onAboutClick}
+                className="hover:text-white cursor-pointer transition-colors"
+              >
+                Hakkımızda
+              </li>
+              <li
+                onClick={onFAQClick}
+                className="cursor-pointer hover:text-white transition-colors"
+              >
+                Sıkça Sorulan Sorular
+              </li>
               <li className="hover:text-white cursor-pointer transition-colors">KVKK</li>
               <li className="hover:text-white cursor-pointer transition-colors">Çalışma İlkelerimiz</li>
               <li className="hover:text-white cursor-pointer transition-colors">Satış Sözleşmesi</li>
@@ -64,10 +79,8 @@ export const Footer = () => {
               <li className="hover:text-white cursor-pointer transition-colors">Blog</li>
             </ul>
           </div>
-
-          {/* 2. Grup: Kategoriler */}
           <div className="border-b border-zinc-800 md:border-0 pb-4 md:pb-0">
-            <button 
+            <button
               onClick={() => toggleSection('categories')}
               className="w-full flex justify-between items-center md:block text-left"
             >
@@ -88,10 +101,8 @@ export const Footer = () => {
               <li className="hover:text-white cursor-pointer transition-colors">Lansmana Özel Fırsatlar</li>
             </ul>
           </div>
-
-          {/* 3. Grup: Popüler Ürünler */}
           <div className="border-b border-zinc-800 md:border-0 pb-4 md:pb-0">
-            <button 
+            <button
               onClick={() => toggleSection('popular')}
               className="w-full flex justify-between items-center md:block text-left"
             >
@@ -112,10 +123,7 @@ export const Footer = () => {
               <li className="hover:text-white cursor-pointer transition-colors">ZMA</li>
             </ul>
           </div>
-
         </div>
-
-        {/* En Alt: Telif Hakkı */}
         <div className="mt-16 pt-8 border-t border-zinc-800 text-[11px] text-gray-500 text-center md:text-left">
           Copyright © - Tüm Hakları Saklıdır.
         </div>

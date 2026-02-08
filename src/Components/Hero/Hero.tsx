@@ -5,8 +5,6 @@ interface HeroProps {
 export const Hero = ({ imageSrc}: HeroProps) => {
   return (
     <section className="relative w-full bg-[#D9E9F1] overflow-hidden flex items-center justify-center">
-      
-      {/* container kaldırıldı → full width */}
       <div className="w-full relative z-10">
         <div className="flex flex-col items-center justify-center text-center">
           
